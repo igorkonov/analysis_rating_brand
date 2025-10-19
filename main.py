@@ -5,6 +5,9 @@ from pathlib import Path
 
 from src.config_logging import setup_logging
 from src.file_reader import CSVFileReader
+from src.reports.factory import ReportFactory
+from src.reports.renderer import ConsoleRenderer
+
 
 logger = logging.getLogger(__name__)
 
@@ -44,12 +47,14 @@ def validate_files(file_paths):
 
 
 def main():
+    """Основная функция выполнения."""
     setup_logging()
 
     args = parse_arguments()
 
     logger.info("Запуск анализа рейтинга брендов")
 
+    # Валидация файлов
     file_errors = validate_files(args.files)
     if file_errors:
         logger.error("Предоставлены некорректные файлы")
@@ -61,20 +66,33 @@ def main():
         logger.info(f"Чтение {len(args.files)} файл(ов)")
         data = reader.read_multiple(args.files)
         logger.info(f"Успешно прочитано {len(data)} продуктов")
-
-        logger.info(f"Запрошен тип отчёта: {args.report}")
-        logger.info("Примеры прочитанных продуктов:")
-        for product in data[:3]:
-            logger.info(
-                f"  {product.name} ({product.brand}): "
-                f"${product.price}, рейтинг: {product.rating}"
-            )
-
     except Exception as e:
         logger.exception(f"Ошибка при чтении файлов: {e}")
         sys.exit(1)
 
-    logger.warning("Генерация отчётов пока не реализована")
+    # Генерация отчёта
+    try:
+        logger.info(f"Создание отчёта типа: {args.report}")
+        report = ReportFactory.create_report(args.report)
+        result = report.generate(data)
+        logger.info("Отчёт успешно сгенерирован")
+    except ValueError as e:
+        logger.error(str(e))
+        sys.exit(1)
+    except Exception as e:
+        logger.exception(f"Ошибка при генерации отчёта: {e}")
+        sys.exit(1)
+
+    # Вывод отчёта
+    try:
+        logger.info("Вывод отчёта")
+        renderer = ConsoleRenderer()
+        renderer.render(result)
+    except Exception as e:
+        logger.exception(f"Ошибка при выводе отчёта: {e}")
+        sys.exit(1)
+
+    logger.info("Анализ завершён успешно")
 
 
 if __name__ == "__main__":
