@@ -9,9 +9,7 @@ try:
     TABULATE_AVAILABLE = True
 except ImportError:
     TABULATE_AVAILABLE = False
-    logger.warning(
-        "Библиотека tabulate не установлена, будет упрощённый вывод"
-    )
+    logger.warning("Библиотека tabulate не установлена, будет упрощённый вывод")
 
 
 class ConsoleRenderer:
@@ -25,7 +23,6 @@ class ConsoleRenderer:
         logger.debug(f"Рендеринг отчёта: {len(rows)} строк")
 
         if TABULATE_AVAILABLE:
-
             print(
                 tabulate(
                     rows,

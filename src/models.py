@@ -6,6 +6,7 @@ class Product:
     """
     Класс, представляющий продукт с его атрибутами.
     """
+
     name: str
     brand: str
     price: float

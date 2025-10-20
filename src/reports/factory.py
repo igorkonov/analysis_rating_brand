@@ -26,7 +26,7 @@ class ReportFactory:
             logger.error(f"Неизвестный тип отчёта: {report_type}")
 
             raise ValueError(
-                f"Неизвестный тип отчёта: {report_type}. "
+                f"Неизвестный тип отчёта: {report_type}.\n"
                 f"Доступные отчёты: {available}"
             )
         return report_class()

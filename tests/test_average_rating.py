@@ -50,4 +50,4 @@ def test_average_rating_rounding(sample_products):
         rating = row[1]
         assert isinstance(rating, float)
         # Проверяем, что не более 2 знаков после запятой
-        assert len(str(rating).split('.')[-1]) <= 2 or rating == int(rating)
+        assert len(str(rating).split(".")[-1]) <= 2 or rating == int(rating)

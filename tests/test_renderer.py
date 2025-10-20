@@ -9,13 +9,15 @@ def test_tabulate_import_error():
     """Тест случая, когда библиотека tabulate не может быть импортирована."""
     # Сохраняем оригинальный модуль
     import src.reports.renderer
-    original_tabulate = getattr(src.reports.renderer, 'tabulate', None)
+
+    original_tabulate = getattr(src.reports.renderer, "tabulate", None)
 
     try:
         # Симулируем ошибку импорта
-        with patch.dict('sys.modules', {'tabulate': None}):
+        with patch.dict("sys.modules", {"tabulate": None}):
             # Перезагружаем модуль для срабатывания ImportError
             import importlib
+
             importlib.reload(src.reports.renderer)
 
             assert not src.reports.renderer.TABULATE_AVAILABLE
@@ -71,7 +73,7 @@ def test_renderer_empty_data():
 
 def test_renderer_without_tabulate():
     """Тест рендеринга при отсутствии библиотеки tabulate."""
-    with patch('src.reports.renderer.TABULATE_AVAILABLE', False):
+    with patch("src.reports.renderer.TABULATE_AVAILABLE", False):
         renderer = ConsoleRenderer()
         report_data = {
             "headers": ["brand", "rating"],
@@ -94,7 +96,7 @@ def test_renderer_without_tabulate():
 
 def test_renderer_without_headers():
     """Тест рендеринга данных без заголовков."""
-    with patch('src.reports.renderer.TABULATE_AVAILABLE', False):
+    with patch("src.reports.renderer.TABULATE_AVAILABLE", False):
         renderer = ConsoleRenderer()
         report_data = {
             "headers": [],
