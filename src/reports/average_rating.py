@@ -1,10 +1,9 @@
 import logging
 from collections import defaultdict
-from typing import List, Dict, Any
+from typing import Any, Dict, List
 
-from .base import BaseReport
 from ..models import Product
-
+from .base import BaseReport
 
 logger = logging.getLogger(__name__)
 

@@ -1,7 +1,8 @@
-import pytest
-import tempfile
 import csv
+import tempfile
 from pathlib import Path
+
+import pytest
 
 from src.models import Product
 

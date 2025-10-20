@@ -8,7 +8,6 @@ from src.file_reader import CSVFileReader
 from src.reports.factory import ReportFactory
 from src.reports.renderer import ConsoleRenderer
 
-
 logger = logging.getLogger(__name__)
 
 

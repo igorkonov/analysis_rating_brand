@@ -1,5 +1,5 @@
-from io import StringIO
 import sys
+from io import StringIO
 from unittest.mock import patch
 
 from src.reports.renderer import ConsoleRenderer

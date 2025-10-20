@@ -1,7 +1,8 @@
 import pytest
-from src.reports.factory import ReportFactory
+
 from src.reports.average_rating import AverageRatingReport
 from src.reports.base import BaseReport
+from src.reports.factory import ReportFactory
 
 
 def test_create_average_rating_report():

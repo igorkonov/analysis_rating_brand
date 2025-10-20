@@ -1,7 +1,7 @@
 import logging
 
-from .base import BaseReport
 from .average_rating import AverageRatingReport
+from .base import BaseReport
 
 logger = logging.getLogger(__name__)
 
